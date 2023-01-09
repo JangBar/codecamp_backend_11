@@ -1,26 +1,24 @@
 function checkNumber(number){
 
-  let arr=[...number]
-  let arr1=number.split("-")
+  let arr=number.split("-")
+  let start_6=number.substr(0,5)
+  let end_7=number.slice(-7,13)
 
-  let str1=number.substr(0,5)
-  let str2=number.slice(-7,13)
-
-  if(arr1[0].length === 6 && arr1[1].length === 7  && arr[6]==="-"){
+  if(arr[0].length === 6 && arr[1].length === 7  && number[6]=== "-" ){
     return "a"
-  }else if(str1.length !== 6 && str2.length !== 7){
+  }else if(start_6.length !== 6 && end_7.length !== 7){
     return "b"
-  }else if(arr[6] !=="-"){
+  }else if(number[6] !== "-"){
     return "c"
   }
 }
 
-function checkStart(number){
-let str = number.substr(0,8).padEnd(14,"*");
-return str;
+function checkStar(number){
+  let result = number.substr(0,8).padEnd(14,"*");
+  return result;
 }
 
-function checkEnd(isValid1,isValid2){
+function checkResult(isValid1,isValid2){
   switch(isValid1){
     case "a": console.log(isValid2);   
               break;
@@ -35,9 +33,9 @@ function customRegistrationNumber(number){
 
   const isValid1 = checkNumber(number)
 
-  const isValid2 = checkStart(number)
+  const isValid2 = checkStar(number)
 
-  checkEnd(isValid1,isValid2)
+  checkResult(isValid1,isValid2)
 
 }
-  customRegistrationNumber("210510-112010101")
+  customRegistrationNumber("2105101010101")
