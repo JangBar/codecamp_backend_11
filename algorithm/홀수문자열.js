@@ -18,7 +18,7 @@ function makeOdd(num){
 
   for(let a=1;a<=num;a++){
     if(a%2!==0){
-      str = str+a
+      str +=a
     }
   }
   return str
