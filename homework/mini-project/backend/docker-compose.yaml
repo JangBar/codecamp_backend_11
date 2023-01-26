@@ -14,6 +14,7 @@ services:
       - ./phone.js:/myfolder/phone.js
       - ./swagger/:/myfolder/swagger/
       - ./user.js/:/myfolder/user.js
+      - ./controllers/:/myfolder/controllers/
     ports:
       - 3000:3000
 
