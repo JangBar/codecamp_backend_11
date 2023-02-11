@@ -1,0 +1,98 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  id: String!
+  userName: String!
+  userEmail: String!
+  userPhone: String!
+  userAge: Int!
+  userGender: Boolean!
+}
+
+type Category {
+  id: String!
+  categoryName: String!
+}
+
+type Brand {
+  id: String!
+  brandName: String!
+  products: [Product!]!
+}
+
+type Allergy {
+  id: String!
+  allergyName: DateTime!
+  products: [Product!]!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Product {
+  id: String!
+  productName: String!
+  productPrice: Int!
+  productWeight: Int!
+  productKcal: Int!
+  productProtein: Int!
+  productFat: Int!
+  productMg: Int!
+  productSugar: Int!
+  premiumCheck: Boolean!
+  category: Category!
+  allergys: [Allergy!]!
+  brands: [Brand!]!
+}
+
+type Query {
+  fetchUsers: [User!]!
+  fetchLoginUser: User!
+  fetchUser: String!
+  fetchUserWithDeleted: [User!]!
+  fetchUserCheck: String!
+  fetchProduct(productId: String!): Product!
+  fetchProducts: [Product!]!
+  fetchProductsWithDeleted: [Product!]!
+}
+
+type Mutation {
+  login(email: String!, password: String!): String!
+  restoreAcessToken: String!
+  userdelete(id: String!): Boolean!
+  updateUser(id: String!, updateUserInput: UpdateUserInput!): User!
+  updateUserPwd(userPassword: String!): User!
+  restoreUser(id: String!): Boolean!
+  loginUserDelete: Boolean!
+  createUser(email: String!, password: String!, name: String!, phone: String!, gender: Boolean!, age: Int!): User!
+  restoreProduct(productId: String!): Boolean!
+  createProduct(createProductInput: CreateProductInput!): Product!
+  deleteProduct(productId: String!): Boolean!
+  createProductCategory(categoryName: String!): Category!
+}
+
+input UpdateUserInput {
+  userName: String
+  userPassword: String
+  userEmail: String
+  userPhone: String
+  userAge: Int
+  userGender: Boolean
+}
+
+input CreateProductInput {
+  productName: String!
+  productPrice: Int!
+  productWeight: Int!
+  productKcal: Int!
+  productProtein: Int!
+  productFat: Int!
+  productMg: Int!
+  productSugar: Int!
+  premiumCheck: Boolean!
+  productCategory: String!
+}
