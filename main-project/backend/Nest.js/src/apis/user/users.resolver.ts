@@ -63,13 +63,13 @@ export class UsersResolver {
   @Mutation(() => User)
   updateUserPwd(
     @Context() context: IContext,
-    @Args('userPassword') userPassword: string,
+    @Args('password') password: string,
   ): Promise<User> {
     console.log('==================');
     console.log(context);
     console.log('==================');
     const id = context.req.user.id;
-    return this.usersService.loginupdate({ id, userPassword });
+    return this.usersService.loginupdate({ id, password });
   }
 
   @Mutation(() => Boolean)
@@ -102,20 +102,20 @@ export class UsersResolver {
 
   @Mutation(() => User)
   createUser(
-    @Args('email') userEmail: string,
-    @Args('password') userPassword: string,
-    @Args('name') userName: string,
-    @Args('phone') userPhone: string,
-    @Args('gender') userGender: boolean,
-    @Args({ name: 'age', type: () => Int }) userAge: number,
+    @Args('email') email: string,
+    @Args('password') password: string,
+    @Args('name') name: string,
+    @Args('phone') phone: string,
+    @Args('gender') gender: boolean,
+    @Args({ name: 'age', type: () => Int }) age: number,
   ): Promise<User> {
     return this.usersService.create({
-      userEmail,
-      userPassword,
-      userName,
-      userAge,
-      userPhone,
-      userGender,
+      email,
+      password,
+      name,
+      age,
+      phone,
+      gender,
     });
   }
 }

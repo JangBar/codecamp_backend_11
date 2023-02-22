@@ -1,0 +1,86 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  id: String!
+  name: String!
+  email: String!
+  phone: String!
+  age: Int!
+  gender: Boolean!
+}
+
+type Category {
+  id: String!
+  name: String!
+}
+
+type Brand {
+  id: Int!
+  brandName: String!
+  products: [Product!]!
+}
+
+type Product {
+  id: String!
+  name: String!
+  price: Int!
+  weight: Int!
+  kcal: Int!
+  protein: Int!
+  fat: Int!
+  mg: Int!
+  sugar: Int!
+  check: Boolean!
+  category: Category!
+  brands: Brand!
+}
+
+type Query {
+  fetchUsers: [User!]!
+  fetchLoginUser: User!
+  fetchUser(email: String!): User!
+  fetchUserWithDeleted: [User!]!
+  fetchUserCheck: String!
+  fetchProduct(productId: String!): Product!
+  fetchProducts: [Product!]!
+  fetchProductsWithDeleted: [Product!]!
+}
+
+type Mutation {
+  login(email: String!, password: String!): String!
+  userdelete(id: String!): Boolean!
+  updateUser(id: String!, updateUserInput: UpdateUserInput!): User!
+  updateUserPwd(password: String!): User!
+  restoreUser(id: String!): Boolean!
+  loginUserDelete: Boolean!
+  createUser(email: String!, password: String!, name: String!, phone: String!, gender: Boolean!, age: Int!): User!
+  restoreProduct(productId: String!): Boolean!
+  createProduct(createProductInput: CreateProductInput!): Product!
+  deleteProduct(productId: String!): Boolean!
+  createCategory(name: String!): Category!
+}
+
+input UpdateUserInput {
+  name: String
+  assword: String
+  email: String
+  phone: String
+  age: Int
+  gender: Boolean
+}
+
+input CreateProductInput {
+  name: String!
+  price: Int!
+  weight: Int!
+  kcal: Int!
+  protein: Int!
+  fat: Int!
+  mg: Int!
+  sugar: Int!
+  check: Boolean!
+  category: String!
+  brands: String!
+}

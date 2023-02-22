@@ -24,17 +24,23 @@ export class ProductsResolver {
     return this.productsService.findAll();
   }
 
+  @Query(() => [Product])
+  fetchProductsWithDeleted(): Promise<Product[]> {
+    return this.productsService.findAllWithDeleted();
+  }
+
+  @Mutation(() => Boolean)
+  restoreProduct(
+    @Args('productId') productId: string, //
+  ): Promise<boolean> {
+    return this.productsService.restore({ productId });
+  }
+
   @Mutation(() => Product)
   createProduct(
     @Args('createProductInput') createProductInput: CreateProductInput,
   ): Promise<Product> {
-    // << 브라우저에 결과 보내는 2가지 방법 >>
-
-    // 1. 저장된 객체 그대로 돌려보내주기 => 프론트엔드 개발자분이 브라우저에 임시저장(캐시) 해놓을 수 있음
     return this.productsService.create({ createProductInput });
-
-    // 2. 결과메시지만 보내주기
-    // return '정상적으로 카테고리가 등록되었습니다.';
   }
   @Mutation(() => Product)
   updateProduct(
@@ -42,5 +48,12 @@ export class ProductsResolver {
     @Args('updateProductInput') updateProductInput: UpdateProductInput,
   ): Promise<Product> {
     return this.productsService.update({ productId, updateProductInput });
+  }
+
+  @Mutation(() => Boolean)
+  deleteProduct(
+    @Args('productId') productId: string, //
+  ): Promise<boolean> {
+    return this.productsService.delete({ productId });
   }
 }

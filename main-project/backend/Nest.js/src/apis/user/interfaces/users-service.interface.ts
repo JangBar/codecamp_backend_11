@@ -3,16 +3,16 @@ import { UpdateUserInput } from '../users/dto/update-user.input';
 import { updatePasswordInput } from '../users/dto/update-user.password.input';
 
 export interface IUsersServiceCreate {
-  userEmail: string;
-  userPassword: string;
-  userName: string;
-  userAge: number;
-  userPhone: string;
-  userGender: boolean;
+  email: string;
+  password: string;
+  name: string;
+  age: number;
+  phone: string;
+  gender: boolean;
 }
 
-export interface IUsersServiceFindOneByEmail {
-  userEmail: string;
+export interface IUsersServiceFindOne {
+  email: string;
 }
 
 export interface IUserServiceDelete {
@@ -30,7 +30,7 @@ export interface IUserServiceUpdate {
 
 export interface IUserloginUpdate {
   id: string;
-  userPassword: string;
+  password: string;
 }
 
 export interface IUserPasswordUpdate {

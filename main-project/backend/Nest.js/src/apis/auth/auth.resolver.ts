@@ -12,11 +12,11 @@ export class AuthResolver {
 
   @Mutation(() => String)
   async login(
-    @Args('email') userEmail: string, //
-    @Args('password') userPassword: string,
+    @Args('email') email: string, //
+    @Args('password') password: string,
     @Context() context: IContext,
   ): Promise<string> {
-    return this.authService.login({ userEmail, userPassword, context });
+    return this.authService.login({ email, password, res: context.res });
   }
 
   @UseGuards(GqlAuthGuard('refresh'))

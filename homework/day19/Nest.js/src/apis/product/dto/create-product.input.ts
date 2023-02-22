@@ -36,4 +36,13 @@ export class CreateProductInput {
 
   @Field(() => Boolean)
   premiumCheck: boolean;
+
+  @Field(() => String)
+  productCategoryId: string;
+
+  @Field(() => [String])
+  productBrands: string[];
+
+  @Field(() => [String])
+  productAllegies: string[];
 }

@@ -4,6 +4,7 @@ import { Allergy } from 'src/apis/product_allergy/entities/product_allergy.entit
 import { Category } from 'src/apis/category/entities/category.entity';
 import {
   Column,
+  DeleteDateColumn,
   Entity,
   JoinTable,
   ManyToMany,
@@ -57,6 +58,9 @@ export class Product {
   @ManyToOne(() => Category)
   @Field(() => Category)
   category: Category;
+
+  @DeleteDateColumn()
+  deletedAt: Date;
 
   @JoinTable()
   @ManyToMany(() => Allergy, (allergys) => allergys.products)

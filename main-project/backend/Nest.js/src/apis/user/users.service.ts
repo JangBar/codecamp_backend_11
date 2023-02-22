@@ -5,12 +5,11 @@ import { User } from './entities/user.entity';
 import {
   IUserloginUpdate,
   IUserOneByUser,
-  IUserPasswordUpdate,
   IUserServiceCheckUpdate,
   IUserServiceDelete,
   IUserServiceUpdate,
   IUsersServiceCreate,
-  IUsersServiceFindOneByEmail,
+  IUsersServiceFindOne,
 } from './interfaces/users-service.interface';
 import * as bcrypt from 'bcrypt';
 
@@ -25,15 +24,15 @@ export class UsersService {
     return this.usersRepository.find();
   }
 
+  findOneEmail({ email }: IUsersServiceFindOne): Promise<User> {
+    return this.usersRepository.findOne({ where: { email } });
+  }
+
   async userdelete({ id }: IUserServiceDelete): Promise<boolean> {
     const result2 = await this.usersRepository.softDelete({
       id,
     });
     return result2.affected ? true : false; //
-  }
-
-  findOneByEmail({ userEmail }: IUsersServiceFindOneByEmail): Promise<User> {
-    return this.usersRepository.findOne({ where: { userEmail } });
   }
 
   findOneByUser({ id }: IUserOneByUser): Promise<User> {
@@ -63,14 +62,14 @@ export class UsersService {
     });
   }
 
-  async loginupdate({ id, userPassword }: IUserloginUpdate): Promise<User> {
+  async loginupdate({ id, password }: IUserloginUpdate): Promise<User> {
     const user = await this.findOneByUser({ id });
-    const hashPw = await bcrypt.hash(userPassword, 10);
+    const hashPw = await bcrypt.hash(password, 10);
 
     if (!user) throw new ConflictException('없는 회원');
     return this.usersRepository.save({
       ...user,
-      userPassword: hashPw,
+      password: hashPw,
     });
   }
 
@@ -82,24 +81,24 @@ export class UsersService {
   }
 
   async create({
-    userEmail,
-    userPassword,
-    userName,
-    userAge,
-    userGender,
-    userPhone,
+    email,
+    password,
+    name,
+    age,
+    gender,
+    phone,
   }: IUsersServiceCreate): Promise<User> {
-    const user = await this.findOneByEmail({ userEmail });
+    const user = await this.findOneEmail({ email });
     if (user) throw new ConflictException('이미 등록된 이메일입니다.');
 
-    const hashedPassword = await bcrypt.hash(userPassword, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
     return this.usersRepository.save({
-      userEmail,
-      userPassword: hashedPassword,
-      userName,
-      userAge,
-      userGender,
-      userPhone,
+      email,
+      password: hashedPassword,
+      name,
+      age,
+      gender,
+      phone,
     });
   }
 }

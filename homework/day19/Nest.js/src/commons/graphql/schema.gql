@@ -2,6 +2,11 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Category {
+  categoryId: String!
+  categoryName: String!
+}
+
 type Brand {
   brandId: String!
   brandName: String!
@@ -18,11 +23,6 @@ type Allergy {
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
-
-type Category {
-  categoryId: String!
-  categoryName: String!
-}
 
 type Product {
   productId: String!
@@ -43,11 +43,14 @@ type Product {
 type Query {
   fetchProduct(productId: String!): Product!
   fetchProducts: [Product!]!
+  fetchProductsWithDeleted: [Product!]!
 }
 
 type Mutation {
+  restoreProduct(productId: String!): Boolean!
   createProduct(createProductInput: CreateProductInput!): Product!
   updateProduct(productId: String!, updateProductInput: UpdateProductInput!): Product!
+  deleteProduct(productId: String!): Boolean!
 }
 
 input CreateProductInput {
@@ -60,6 +63,9 @@ input CreateProductInput {
   productMg: Int!
   productSugar: Int!
   premiumCheck: Boolean!
+  productCategoryId: String!
+  productBrands: [String!]!
+  productAllegies: [String!]!
 }
 
 input UpdateProductInput {
@@ -72,4 +78,7 @@ input UpdateProductInput {
   productMg: Int
   productSugar: Int
   premiumCheck: Boolean
+  productCategoryId: String
+  productBrands: [String!]
+  productAllegies: [String!]
 }

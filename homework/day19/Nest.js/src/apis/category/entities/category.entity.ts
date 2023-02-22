@@ -8,7 +8,7 @@ export class Category {
   @Field(() => String)
   categoryId: string;
 
-  @Column({ type: 'char', length: 5 })
+  @Column({ type: 'char', length: 10 })
   @Field(() => String)
   categoryName: string;
 }

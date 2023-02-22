@@ -15,27 +15,31 @@ export class User {
 
   @Column({ type: 'varchar', length: 100 })
   @Field(() => String)
-  userName: string;
+  name: string;
 
   @Column({ type: 'varchar', length: 100 })
   // @Field(() => String)
-  userPassword: string;
+  password: string;
 
   @Column({ type: 'varchar', length: 100 })
   @Field(() => String)
-  userEmail: string;
+  email: string;
 
   @Column({ type: 'varchar', length: 100 })
   @Field(() => String)
-  userPhone: string;
+  phone: string;
 
   @Column({ type: 'int' })
   @Field(() => Int)
-  userAge: number;
+  age: number;
 
   @Column({ type: 'tinyint' })
   @Field(() => Boolean)
-  userGender: boolean;
+  gender: boolean;
+
+  @Column({ default: 0 })
+  @Field(() => Int)
+  amount: number;
 
   @DeleteDateColumn()
   deletedAt: Date;

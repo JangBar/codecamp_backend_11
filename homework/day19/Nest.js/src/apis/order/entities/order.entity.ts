@@ -11,7 +11,7 @@ export class Order {
 
   @Column({ type: 'int' })
   @Field(() => Int)
-  orderPrice: string;
+  orderPrice: number;
 
   @Column({ type: 'date' })
   @Field(() => Date)

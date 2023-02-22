@@ -1,0 +1,67 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Category {
+  categoryId: String!
+  categoryName: String!
+}
+
+type Brand {
+  brandId: String!
+  brandName: String!
+  products: [Product!]!
+}
+
+type Allergy {
+  allergyId: String!
+  allergyName: DateTime!
+  products: [Product!]!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Product {
+  productId: String!
+  productName: String!
+  productPrice: Int!
+  productWeight: Int!
+  productKcal: Int!
+  productProtein: Int!
+  productFat: Int!
+  productMg: Int!
+  productSugar: Int!
+  premiumCheck: Boolean!
+  productCategoryId: Category!
+  allergys: [Allergy!]!
+  brands: [Brand!]!
+}
+
+type Query {
+  fetchProduct(productId: String!): Product!
+  fetchProducts: [Product!]!
+  fetchProductsWithDeleted: [Product!]!
+}
+
+type Mutation {
+  restoreProduct(productId: String!): Boolean!
+  createProduct(createProductInput: CreateProductInput!): Product!
+  deleteProduct(productId: String!): Boolean!
+  createProductCategory(categoryName: String!): Category!
+}
+
+input CreateProductInput {
+  productName: String!
+  productPrice: Int!
+  productWeight: Int!
+  productKcal: Int!
+  productProtein: Int!
+  productFat: Int!
+  productMg: Int!
+  productSugar: Int!
+  premiumCheck: Boolean!
+  productCategoryId: String!
+}

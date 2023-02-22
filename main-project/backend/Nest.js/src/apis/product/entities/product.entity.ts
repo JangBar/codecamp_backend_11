@@ -21,35 +21,35 @@ export class Product {
 
   @Column({ type: 'varchar', length: 100 })
   @Field(() => String)
-  productName: string;
+  name: string;
 
   @Column({ type: 'int' })
   @Field(() => Int)
-  productPrice: number;
+  price: number;
 
   @Column({ type: 'int' })
   @Field(() => Int)
-  productWeight: number;
+  weight: number;
 
   @Column({ type: 'int' })
   @Field(() => Int)
-  productKcal: number;
+  kcal: number;
 
   @Column({ type: 'int' })
   @Field(() => Int)
-  productProtein: number;
+  protein: number;
 
   @Column({ type: 'int' })
   @Field(() => Int)
-  productFat: number;
+  fat: number;
 
   @Column({ type: 'int' })
   @Field(() => Int)
-  productMg: number;
+  mg: number;
 
   @Column({ type: 'int' })
   @Field(() => Int)
-  productSugar: number;
+  sugar: number;
 
   @Column({ type: 'tinyint' })
   @Field(() => Boolean)

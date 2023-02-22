@@ -1,6 +1,5 @@
 export class CouponController {
   cashService;
-
   constructor(cashService) {
     this.cashService = cashService;
   }

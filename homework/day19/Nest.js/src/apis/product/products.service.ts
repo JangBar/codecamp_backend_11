@@ -1,4 +1,4 @@
-import { Injectable, UnprocessableEntityException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Product } from './entities/product.entity';
@@ -7,6 +7,7 @@ import {
   IProductsServiceFindOne,
   IProductServiceUpdate,
   IProductServiceCheckUpdate,
+  IProductsServiceDelete,
 } from './interfaces/products-service.interface';
 
 @Injectable()
@@ -17,18 +18,29 @@ export class ProductsService {
   ) {}
 
   findOne({ productId }: IProductsServiceFindOne): Promise<Product> {
-    return this.productsRepository.findOne({ where: { productId: productId } });
+    return this.productsRepository.findOne({
+      where: { productId: productId },
+      relations: ['category'],
+    });
   }
 
   findAll(): Promise<Product[]> {
-    return this.productsRepository.find();
+    return this.productsRepository.find({
+      relations: ['category'],
+    });
   }
 
-  create({ createProductInput }: IProductsServiceCreate): Promise<Product> {
-    const result = this.productsRepository.save({
-      ...createProductInput,
+  findAllWithDeleted(): Promise<Product[]> {
+    return this.productsRepository.find({ withDeleted: true });
+  }
+
+  async delerestoreProductte({
+    productId,
+  }: IProductsServiceDelete): Promise<boolean> {
+    const result2 = await this.productsRepository.softDelete({
+      productId: productId,
     });
-    return result;
+    return result2.affected ? true : false; //
   }
 
   async update({
@@ -45,8 +57,37 @@ export class ProductsService {
   }
 
   checkUpdate({ product }: IProductServiceCheckUpdate): void {
-    if (product.premiumCheck) {
-      throw new UnprocessableEntityException('판매 불가 상품입니다.');
-    }
+    // if ('검증할 조건 아직 없음') {
+    //   throw new UnprocessableEntityException('판매 불가 상품입니다.');
+    // }
+    console.log(product, '검증 완료되었습니다.');
+  }
+
+  async restore({ productId }: IProductsServiceDelete): Promise<boolean> {
+    const result2 = await this.productsRepository.restore({
+      productId: productId,
+    });
+    return result2.affected ? true : false; //
+  }
+
+  async delete({ productId }: IProductsServiceDelete): Promise<boolean> {
+    const result2 = await this.productsRepository.softDelete({
+      productId: productId,
+    });
+    return result2.affected ? true : false; //
+  }
+
+  async create({
+    createProductInput,
+  }: IProductsServiceCreate): Promise<Product> {
+    const { productCategoryId, ...Product } = createProductInput;
+
+    const result = await this.productsRepository.save({
+      ...Product,
+      productCategoryId: {
+        id: productCategoryId,
+      },
+    });
+    return result;
   }
 }
