@@ -1,0 +1,96 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  id: String!
+  name: String!
+  email: String!
+  phone: String!
+}
+
+type Category {
+  id: Int!
+  name: String!
+}
+
+type Product {
+  id: String!
+  name: String!
+  price: Int!
+  weight: Int!
+  kcal: Int!
+  protein: Int!
+  fat: Int!
+  mg: Int!
+  sugar: Int!
+  check: Boolean!
+  category: Category!
+  allergies: [Allergy!]!
+}
+
+type Allergy {
+  name: String!
+  products: [Product!]
+}
+
+type Query {
+  fetchUser(id: String!): User!
+  fetchLoginUser: User!
+  fetchUsers: [User!]!
+  fetchProductsWithDeleted: [Product!]!
+  fetchProduct(id: String!): Product!
+  fetchProducts: [Product!]!
+  fetchCategory(id: Float!): Category!
+  fetchCategorys: [Category!]!
+}
+
+type Mutation {
+  login(email: String!, password: String!): String!
+  restoreAccessToken: String!
+  updateUser(id: String!, updateUserInput: UpdateUserInput!): User!
+  updateUserPwd(password: String!): User!
+  deleteUser: Boolean!
+  deleteLoginUser(id: String!): Boolean!
+  restoreUser(id: String!): Boolean!
+  createUser(email: String!, password: String!, name: String!, phone: String!): User!
+  createProduct(createProductInput: CreateProductInput!): Product!
+  updateProduct(id: String!, updateProductInput: UpdateProductInput!): Product!
+  deleteProduct(name: String!): Boolean!
+  restoreProduct(id: String!): Boolean!
+  createCategory(name: String!): Category!
+  deleteCategory(id: Float!): String!
+}
+
+input UpdateUserInput {
+  name: String
+  password: String
+  email: String
+  phone: String
+}
+
+input CreateProductInput {
+  name: String!
+  price: Int!
+  weight: Int!
+  kcal: Int!
+  protein: Int!
+  fat: Int!
+  mg: Int!
+  sugar: Int!
+  check: Boolean!
+  categoryId: Int!
+  allergies: [String!]
+}
+
+input UpdateProductInput {
+  name: String
+  price: Int
+  weight: Int
+  kcal: Int
+  protein: Int
+  fat: Int
+  mg: Int
+  sugar: Int
+  check: Boolean
+}
