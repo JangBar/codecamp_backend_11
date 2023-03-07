@@ -18,8 +18,8 @@ steps:
     args:
       - set
       - image
-      - deployment/my-backend-nestjs
-      - my-backend-sha256-1=asia.gcr.io/beackend01/my-backend:2.9
+      - deployment/my-backend-project-nestjs
+      - my-backend-sha256-1=asia.gcr.io/beackend01/my-backend:3.0
     env:
       - CLOUDSDK_COMPUTE_ZONE=asia-northeast3
       - CLOUDSDK_CONTAINER_CLUSTER=autopilot-cluster-1
