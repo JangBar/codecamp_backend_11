@@ -3,23 +3,23 @@ steps:
   - name: docker/compose:1.29.0
     args:
       - -f
-      - class/section18/18-04-deploy-with-kubernetes-ci-cd/backend/cloudbuild.yaml
+      - class/section18/18-04-deploy-with-kubernetes-ci-cd/backend/docker-compose.prod.yaml
       - build
 
   # 2단계 => docker-compose -f docker-compose.prod.yaml push
   - name: docker/compose:1.29.0
     args:
       - -f
-      - class/section18/18-04-deploy-with-kubernetes-ci-cd/backend/cloudbuild.yaml
+      - class/section18/18-04-deploy-with-kubernetes-ci-cd/backend/docker-compose.prod.yaml
       - push
 
-  # 3단계 => kubectl set image deployment/mybackend-nestjs  my-backend-sha256-1=asia.gcr.io/beackend01/my-backend:2.7
+  # 3단계 => kubectl set image deployment/mybackend-nestjs  mybackend-nestjs-sha256-1=asia.gcr.io/backend-376401/mybackend-nestjs:0.9
   - name: gcr.io/cloud-builders/kubectl
     args:
       - set
       - image
       - deployment/mybackend-nestjs
-      - my-backend-sha256-1=asia.gcr.io/beackend01/my-backend:2.8
+      - my-backend-sha256-1=asia.gcr.io/beackend01/my-backend:2.9
     env:
       - CLOUDSDK_COMPUTE_ZONE=asia-northeast3
       - CLOUDSDK_CONTAINER_CLUSTER=autopilot-cluster-1
